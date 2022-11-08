@@ -40,7 +40,7 @@ def detect_language(model: "Whisper", mel: Tensor, tokenizer: Tokenizer = None) 
 
     # skip encoder forward pass if already-encoded audio features were given
     if mel.shape[-2:] != (model.dims.n_audio_ctx, model.dims.n_audio_state):
-        mel = model.encoder(mel)
+        mel = model.encoder(mel).last_hidden_state
 
     # forward pass using a single token, startoftranscript
     n_audio = mel.shape[0]
